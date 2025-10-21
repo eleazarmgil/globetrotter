@@ -5,7 +5,6 @@ const COST_PER_EXTRA_LUGGAGE = 50;
 
 export interface CostSummary {
     baseFlight: number;
-    travelerSubtotal: number;
     pets: number;
     luggage: number;
     total: number;
@@ -44,7 +43,6 @@ export const calculateTotalCost = (
 
     return {
         baseFlight: baseFlightPrice,
-        travelerSubtotal: baseFlightPrice, 
         pets: petCost,
         luggage: luggageCost,
         total: total,
