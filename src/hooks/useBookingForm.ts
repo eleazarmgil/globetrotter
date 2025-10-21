@@ -71,7 +71,7 @@ export const useBookingForm = () => {
     ) => {
         setState(s => ({
             ...s,
-            formData: {
+            bookingFormData: { 
                 ...s.bookingFormData,
                 [key]: value,
             },
@@ -102,6 +102,7 @@ export const useBookingForm = () => {
         nextStep,
         prevStep,
         updateFormData,
-        handleSubmit
+        handleSubmit,
+        calculateTotalCost 
     };
 };
