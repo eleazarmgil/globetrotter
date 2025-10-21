@@ -6,6 +6,8 @@ import { StepProps } from '../types/booking';
 import {BookingState, BookingFormData, Traveler } from '../types/booking';
 import { Step1 } from '../components/steps/step1';
 import { Step2 } from '../components/steps/step2';
+import { Step3 } from '../components/steps/step3';
+import { Step4 } from '../components/steps/step4';
 import { validateStep } from '../utils/validation';
 import { fetchFlightOptions } from '../services/flightService'; 
 import { calculateTotalCost } from '../utils/calculateTotalCost';
@@ -132,6 +134,10 @@ const totalCost = useMemo(() => {
                 return <Step1 {...commonProps} />;
             case 2:
                 return <Step2 {...commonProps} />;
+            case 3:
+                return <Step3 {...commonProps} />;
+            case 4:
+                return <Step4 {...commonProps} />;
             default:
                 return <div className="text-red-500">Paso no encontrado.</div>;
         }
