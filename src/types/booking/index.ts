@@ -4,3 +4,4 @@ export * from './bookingFormData';
 export * from './state';
 export * from './traveler';
 export * from './tripInfo';
+export * from './stepProps';

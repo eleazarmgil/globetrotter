@@ -1,103 +1,217 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
+import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon, Loader2 } from 'lucide-react';
+import { StepProps } from '../types/booking';
+import {BookingState, BookingFormData, Traveler } from '../types/booking';
+import { Step1 } from '../components/steps/step1';
+import { Step2 } from '../components/steps/step2';
+import { validateStep } from '../utils/validation';
+import { fetchFlightOptions } from '../services/flightService'; 
+import { calculateTotalCost } from '../utils/calculateTotalCost';
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+const INITIAL_FORM_DATA: BookingFormData = {
+    trip: {
+        destination: '', 
+        departureDate: '',
+        returnDate: '',
+        flightClass: '',
+    } as any, 
+    travelers: [{
+        id: crypto.randomUUID(),
+        fullName: '',
+        dateOfBirth: '',
+        documentType: '',
+        documentNumber: '',
+    }] as Traveler[],
+    services: {
+        travelsWithPets: false,
+        petCount: 0,
+        needsExtraLuggage: false,
+        extraLuggageCount: 0,
+        addInsurance: true,
+        selectSeats: false,
+        requiresSpecialAssistance: false,
+        assistanceNotes: null,
+    } as any,
+};
+
+const INITIAL_STATE: BookingState = {
+    currentStep: 1,
+    bookingFormData: INITIAL_FORM_DATA,
+    flightOptions: [], 
+};
+
+const App = () => {
+    const [state, setState] = useState<BookingState>(INITIAL_STATE);
+    const [isConfirmed, setIsConfirmed] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const loadFlightData = async () => {
+            setIsLoading(true);
+            try {
+                const options = await fetchFlightOptions(); 
+                setState(prevState => ({
+                    ...prevState,
+                    flightOptions: options,
+                    bookingFormData: {
+                        ...prevState.bookingFormData,
+                        trip: {
+                            ...prevState.bookingFormData.trip,
+                            destination: options.length > 0 ? options[0].destination : '', 
+                        }
+                    }
+                }));
+                setError(null);
+            } catch (err) {
+                console.error("Error al cargar opciones de vuelo:", err);
+                setError("Error al cargar las opciones de vuelo. Por favor, inténtalo de nuevo.");
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        loadFlightData();
+    }, []);
+
+    const updateFormData = useCallback(<K extends keyof BookingFormData>(key: K, value: BookingFormData[K]) => {
+        setState(prevState => ({
+            ...prevState,
+            bookingFormData: {
+                ...prevState.bookingFormData,
+                [key]: value,
+            },
+        }));
+    }, []);
+
+    const nextStep = useCallback(() => {
+        setState(prevState => ({
+            ...prevState,
+            currentStep: Math.min(prevState.currentStep + 1, 4),
+        }));
+    }, []);
+
+    const prevStep = useCallback(() => {
+        setState(prevState => ({
+            ...prevState,
+            currentStep: Math.max(prevState.currentStep - 1, 1),
+        }));
+    }, []);
+
+    const handleFinalize = () => {
+        console.log("Reserva Finalizada:", state.bookingFormData);
+        setIsConfirmed(true);
+    };
+    
+    const canProceed = useMemo(() => {
+        if (state.currentStep === 1 && state.flightOptions.length === 0) return false;
+        return validateStep(state.currentStep, state.bookingFormData);
+    }, [state.currentStep, state.bookingFormData, state.flightOptions]);
+
+const totalCost = useMemo(() => {
+    return calculateTotalCost(state.bookingFormData, state.flightOptions).total;
+}, [state.bookingFormData, state.flightOptions]);
+
+    const renderStep = () => {
+        const commonProps: StepProps = {
+        bookingFormData: state.bookingFormData,
+        flightOptions: state.flightOptions,
+        updateFormData,
+        calculateTotalCost,
+        totalCost,
+        nextStep,  
+        prevStep, 
+        currentStep: state.currentStep, 
+        handleSubmit: handleFinalize, 
+    };
+
+        switch (state.currentStep) {
+            case 1:
+                return <Step1 {...commonProps} />;
+            case 2:
+                return <Step2 {...commonProps} />;
+            default:
+                return <div className="text-red-500">Paso no encontrado.</div>;
+        }
+    };
+    
+    const steps = [
+        "Información del viaje", "Información personal", "Otros servicios", "Resumen"
+    ];
+
+    if (isLoading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-gray-100">
+                <div className="flex flex-col items-center p-8 bg-white rounded-xl shadow-lg">
+                    <Loader2 className="w-10 h-10 text-indigo-600 animate-spin mb-4" />
+                    <h2 className="text-xl font-bold text-gray-800">Cargando opciones de vuelo...</h2>
+                    <p className="text-gray-600">Esto puede tomar un momento.</p>
+                </div>
+            </div>
+        );
+    }
+    
+    if (error) {
+          return (
+            <div className="min-h-screen flex items-center justify-center bg-gray-100">
+                <div className="p-8 bg-red-100 border border-red-400 text-red-700 rounded-xl shadow-lg max-w-md text-center mx-auto">
+                    <p className="font-bold mb-2">Error de Carga</p>
+                    <p>{error}</p>
+                </div>
+            </div>
+        );
+    }
+    return (
+        <div className="min-h-screen bg-gray-100 p-4 sm:p-8 font-sans">
+            <header className="text-center mb-10">
+                <h1 className="text-3xl font-extrabold text-blue-900 border-b-4 border-indigo-400 inline-block pb-1">
+                    Globetrotter
+                </h1>
+            </header>
+
+            <div className="max-w-4xl mx-auto">
+                 {isConfirmed && (
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                        <div className="bg-white p-10 rounded-xl shadow-2xl text-center max-w-sm">
+                            <CheckCircleIcon className="w-16 h-16 text-green-500 mx-auto mb-4"/>
+                            <h2 className="text-2xl font-bold text-gray-800">¡Reserva Confirmada!</h2>
+                        </div>
+                    </div>
+                )}
+                
+                <nav className="flex justify-between items-center mb-8 p-4 bg-white rounded-xl shadow-md">
+                    {steps.map((label, index) => {
+                        const stepNumber = index + 1;
+                        const isActive = stepNumber === state.currentStep;
+                        const isCompleted = stepNumber < state.currentStep;
+
+                        return (
+                            <div 
+                                key={stepNumber}
+                                className="flex-1 text-center cursor-pointer"
+                                onClick={() => setState(s => ({...s, currentStep: stepNumber}))}
+                            >
+                                <div className={`w-8 h-8 rounded-full flex items-center justify-center mx-auto mb-1 font-bold transition-colors duration-300 
+                                    ${isActive ? 'bg-indigo-600 text-white shadow-lg' : isCompleted ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-500'}`}
+                                >
+                                    {isCompleted ? <CheckCircleIcon className="w-4 h-4"/> : stepNumber}
+                                </div>
+                                <span className={`text-xs font-medium hidden sm:block ${isActive ? 'text-indigo-600' : 'text-gray-500'}`}>
+                                    {label}
+                                </span>
+                            </div>
+                        );
+                    })}
+                </nav>
+
+                <div className="bg-white p-6 sm:p-8 rounded-xl shadow-2xl min-h-[300px]">
+                    {renderStep()}
+                </div>
+            </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
-}
+    );
+};
+
+export default App;
