@@ -1,5 +1,5 @@
 export interface DestinationOption {
-    id: string;
-    name: string;
-    prices: { [key: string]: number };
+    destination: string;
+    class: string;
+    priceUSD: number 
 }

@@ -1,4 +1,4 @@
-import { FormData, DestinationOption } from '@/types/booking';
+import { BookingFormData, DestinationOption } from '@/types/booking';
 
 const COST_PER_PET = 100;
 const COST_PER_EXTRA_LUGGAGE = 50;
@@ -17,16 +17,16 @@ export interface CostSummary {
  * @returns A detailed summary of the total cost.
  */
 export const calculateTotalCost = (
-    formData: FormData, 
+    bookingFormData: BookingFormData, 
     flightOptions: DestinationOption[]
 ): CostSummary => {
-    const { trip, travelers, services } = formData;
+    const { trip, travelers, services } = bookingFormData;
     const travelerCount = travelers.length;
-    const selectedFlight = flightOptions.find(opt => opt.name === trip.destination);
+    const selectedFlight = flightOptions.find(opt => opt.destination === trip.destination && opt.class===trip.flightClass);
     
     let baseFlightPrice = 0;
     if (selectedFlight && trip.flightClass) {
-        const pricePerTraveler = selectedFlight.prices[trip.flightClass];
+        const pricePerTraveler = selectedFlight.priceUSD;
         baseFlightPrice = pricePerTraveler * travelerCount;
     }
 
