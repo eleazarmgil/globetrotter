@@ -1,10 +1,10 @@
 export interface AdditionalService {
     travelsWithPets: boolean;
-    petCount: number | null;
+    petCount?: number;
     needsExtraLuggage: boolean;
-    extraLuggageCount: number | null;
+    extraLuggageCount?: number;
     addInsurance: boolean;
     selectSeats: boolean;
     requiresSpecialAssistance: boolean;
-    assistanceNotes: string | null; 
+    assistanceNotes?: string; 
 }
