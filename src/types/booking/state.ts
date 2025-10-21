@@ -1,7 +1,8 @@
 import { DestinationOption } from './destinationOption';
+import { BookingFormData } from './bookingFormData';
 
 export interface BookingState {
     currentStep: number;
-    formData: FormData;
+    bookingFormData: BookingFormData;
     flightOptions: DestinationOption[];
 }
