@@ -49,6 +49,7 @@ interface BookingFlowResult {
     error: string | null;
     isConfirmed: boolean;
     calculateTotalCost: (formData: BookingFormData, options: DestinationOption[]) => CostSummary;
+    resetConfirmation: () => void;
 }
 
 export const useBookingFlow = (): BookingFlowResult => {
@@ -56,7 +57,7 @@ export const useBookingFlow = (): BookingFlowResult => {
     const [isConfirmed, setIsConfirmed] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-
+    
     useEffect(() => {
         const loadFlightData = async () => {
             setIsLoading(true);
@@ -122,6 +123,10 @@ export const useBookingFlow = (): BookingFlowResult => {
         return calculateTotalCost(state.bookingFormData, state.flightOptions).total;
     }, [state.bookingFormData, state.flightOptions]);
 
+    const resetConfirmation = useCallback(() => {
+        setIsConfirmed(false);
+    }, []);
+
     return {
         state,
         updateFormData,
@@ -134,5 +139,6 @@ export const useBookingFlow = (): BookingFlowResult => {
         error,
         isConfirmed,
         calculateTotalCost,
+        resetConfirmation
     };
 };
