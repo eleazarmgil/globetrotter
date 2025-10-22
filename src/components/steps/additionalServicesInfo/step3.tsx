@@ -18,6 +18,17 @@ interface StepProps {
 
 const MAX_NOTES_CHARS = 200;
 
+/**
+ * @component Step3
+ * @description Represents the third step in the booking flow, allowing the user to select
+ * and configure optional additional services.
+ * @param {StepProps} props - The component's props.
+ * @param {BookingFormData} props.bookingFormData - The current state of the entire booking form data.
+ * @param {DestinationOption[]} props.flightOptions - List of available flight options (not used directly in this step).
+ * @param {(key: K, value: BookingFormData[K]) => void} props.updateFormData - Callback to update the main form state.
+ * @param {() => void} props.nextStep - Callback to advance to the next step.
+ * @param {() => void} props.prevStep - Callback to return to the previous step.
+ */
 export const Step3: React.FC<StepProps> = ({ 
     bookingFormData, 
     updateFormData,

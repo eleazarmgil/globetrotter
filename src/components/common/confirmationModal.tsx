@@ -8,6 +8,15 @@ interface ConfirmationModalProps {
   message: string;
 }
 
+/**
+ * @component ConfirmationModal
+ * @description A reusable modal component used to display a confirmation or success message.
+ * @param {ConfirmationModalProps} props - The component's props.
+ * @param {boolean} props.isOpen - Controls the visibility of the modal.
+ * @param {() => void} props.onClose - Function to be called when the modal is closed.
+ * @param {string} props.title - The title of the confirmation message.
+ * @param {string} props.message - The main body message of the confirmation.
+ */
 export const ConfirmationModal: FC<ConfirmationModalProps> = ({
   isOpen,
   onClose,

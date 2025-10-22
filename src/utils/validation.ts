@@ -1,5 +1,15 @@
 import { BookingFormData } from '../types/booking';
 
+/**
+ * Validates the data for a specific step of the booking form.
+ *
+ * This function checks for required fields and logical constraints (like date order)
+ * based on the current step number.
+ *
+ * @param step - The current step number (1, 2, 3, or 4) to validate.
+ * @param formData - The complete booking form data object.
+ * @returns {boolean} True if the current step's data is valid, false otherwise.
+ */
 export const validateStep = (step: number, formData: BookingFormData): boolean => {
     const { trip, travelers, services } = formData;
 

@@ -7,6 +7,19 @@ import { FormInputGroup } from '../../common/formInputGroup';
 import { FormElement } from '../../common/formElement'; 
 import { DestinationOption } from '../../../types/booking';
 
+/**
+ * @component
+ * @description The first step in the booking flow, focused on selecting the trip's destination,
+ * flight class, and departure/return dates.
+ * @param {StepProps} props - The component's props.
+ * @param {object} props.bookingFormData - The current state of the booking form data.
+ * @param {function} props.updateFormData - Function to update the main booking form data state.
+ * @param {function} props.nextStep - Function to navigate to the next step.
+ * @param {DestinationOption[]} props.flightOptions - Available flight options for destination selection.
+ * @param {function} props.prevStep - Function to navigate to the previous step (optional).
+ * @param {boolean} props.canProceed - Flag indicating if the current step validation allows proceeding.
+ * @returns {JSX.Element} The Step 1 Trip Information component.
+ */
 export const Step1 = ({ 
     bookingFormData, 
     updateFormData, 

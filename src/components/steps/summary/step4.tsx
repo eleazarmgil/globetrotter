@@ -10,6 +10,18 @@ import { CostSummaryCard } from './costSummaryCard';
 import { StepContainer } from '../../common/stepContainer';
 import { StepNavigation } from '../../common/stepNavigation';
 
+/**
+ * @component
+ * @description The final step in the booking flow, displaying a complete summary of the trip,
+ * traveler details, selected additional services, and the total cost.
+ * It also includes the navigation to finalize the booking.
+ * @param {StepProps} props - The component's props.
+ * @param {object} props.bookingFormData - The current state of the booking form data.
+ * @param {DestinationOption[]} props.flightOptions - Available flight options to calculate costs.
+ * @param {function} props.handleSubmit - Function to call when the user finalizes the booking.
+ * @param {function} props.prevStep - Function to navigate to the previous step.
+ * @returns {JSX.Element} The Step 4 Summary component.
+ */
 export const Step4: React.FC<StepProps> = ({
     bookingFormData,
     flightOptions,

@@ -14,6 +14,21 @@ interface ServiceToggleWithCountProps {
     maxCount: number;
 }
 
+/**
+ * @component ServiceToggleWithCount
+ * @description A component that combines a toggle switch for an optional service with an associated
+ * numerical input field, which appears when the service is enabled. Includes basic validation logic.
+ * @param {ServiceToggleWithCountProps} props - The component's props.
+ * @param {string} props.id - Unique ID for the toggle and input elements.
+ * @param {string} props.label - Display name of the service.
+ * @param {number} props.costPerUnit - Cost associated with each unit of the service.
+ * @param {boolean} props.isChecked - Current state of the toggle switch.
+ * @param {(checked: boolean) => void} props.onToggleChange - Handler for toggle state change.
+ * @param {string} props.countLabel - Label for the numerical input field (e.g., "Number of Pets").
+ * @param {number | undefined} props.countValue - Current value of the numerical input.
+ * @param {(value: string) => void} props.onCountChange - Handler for numerical input value change.
+ * @param {number} props.maxCount - Maximum allowed value for the count input.
+ */
 export const ServiceToggleWithCount: FC<ServiceToggleWithCountProps> = ({
     id,
     label,

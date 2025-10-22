@@ -8,6 +8,17 @@ interface SimpleToggleProps {
     description?: string; 
 }
 
+/**
+ * @component SimpleToggle
+ * @description A basic component for a toggle switch (checkbox styled as a switch)
+ * used to enable or disable a simple option.
+ * @param {SimpleToggleProps} props - The component's props.
+ * @param {string} props.id - Unique ID for the toggle element.
+ * @param {string} props.label - Text displayed next to the toggle.
+ * @param {boolean} props.checked - Current state of the toggle.
+ * @param {(checked: boolean) => void} props.onChange - Handler for toggle state change.
+ * @param {string} [props.description] - Optional secondary text to explain the option.
+ */
 export const SimpleToggle: FC<SimpleToggleProps> = 
     ({ label, checked, onChange, id, description }) => (
         <div className="flex justify-between items-start py-4 border-b border-gray-100 last:border-b-0">

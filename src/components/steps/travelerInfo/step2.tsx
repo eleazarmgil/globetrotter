@@ -15,6 +15,18 @@ const MAX_SERVICE_COUNT = 100;
 const COST_PER_PET = 100;
 const COST_PER_EXTRA_LUGGAGE = 50;
 
+/**
+ * @component
+ * @description The second step in the booking flow, dedicated to capturing traveler details
+ * and selecting initial optional services like pets and extra luggage.
+ * @param {StepProps} props - The component's props.
+ * @param {object} props.bookingFormData - The current state of the booking form data.
+ * @param {function} props.updateFormData - Function to update the main booking form data state.
+ * @param {function} props.nextStep - Function to navigate to the next step.
+ * @param {function} props.prevStep - Function to navigate to the previous step.
+ * @param {boolean} props.canProceed - Flag indicating if the current step validation allows proceeding.
+ * @returns {JSX.Element} The Step 2 Traveler and Services component.
+ */
 export const Step2: React.FC<StepProps> = ({
     bookingFormData,
     updateFormData,

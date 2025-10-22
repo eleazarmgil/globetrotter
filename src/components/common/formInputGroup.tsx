@@ -6,6 +6,15 @@ interface FormInputProps {
   children: ReactNode; 
 }
 
+/**
+ * @component FormInputGroup
+ * @description Wrapper component for form inputs, providing a standard structure including 
+ * a label, a container for relative positioning (for icons), and validation messages.
+ * @param {FormInputProps} props - The component's props.
+ * @param {string} props.label - The label text for the input field.
+ * @param {boolean} [props.isInvalid=false] - Flag to indicate if the input group is in an invalid state.
+ * @param {ReactNode} props.children - The input element(s) and any associated icon.
+ */
 export const FormInputGroup: FC<FormInputProps> = ({ label, isInvalid = false, children }) => {
   return (
     <div>

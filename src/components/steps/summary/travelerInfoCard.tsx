@@ -7,6 +7,14 @@ interface TravelerInfoCardProps {
     travelers: Traveler[];
 }
 
+/**
+ * @component
+ * @description A card component that lists the basic information for each traveler
+ * included in the booking, showing their name and calculated age (if date of birth is provided).
+ * @param {TravelerInfoCardProps} props - The component's props.
+ * @param {Traveler[]} props.travelers - An array of traveler objects.
+ * @returns {JSX.Element} The Traveler Information Card component.
+ */
 export const TravelerInfoCard: React.FC<TravelerInfoCardProps> = ({ travelers }) => (
     <div className="p-6 bg-white rounded-xl shadow-lg border border-blue-100">
         <h4 className="text-xl font-bold text-blue-700 mb-4 flex items-center border-b pb-2">
