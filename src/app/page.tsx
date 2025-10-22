@@ -9,6 +9,7 @@ import { Step2 } from '../components/steps/step2';
 import { Step3 } from '../components/steps/step3';
 import { Step4 } from '../components/steps/step4';
 import { useBookingFlow } from '@/hooks/useBookingFlow';
+import { ConfirmationModal } from '@/components/common/confirmationModal';
 
 const INITIAL_FORM_DATA: BookingFormData = {
     trip: {
@@ -69,6 +70,7 @@ const App = () => {
         totalCost,
         canProceed,
         calculateTotalCost,
+        resetConfirmation,
     } = useBookingFlow();
 
     const commonProps: StepProps = {
@@ -78,9 +80,9 @@ const App = () => {
         nextStep,
         prevStep,
         handleSubmit: handleFinalize,
-        totalCost, 
+        totalCost,
         calculateTotalCost,
-        currentStep: state.currentStep, 
+        currentStep: state.currentStep,
     };
 
     const renderStep = () => {
@@ -134,14 +136,14 @@ const App = () => {
             </header>
 
             <div className="max-w-4xl mx-auto">
-                {isConfirmed && (
-                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                        <div className="bg-white p-10 rounded-xl shadow-2xl text-center max-w-sm">
-                            <CheckCircleIcon className="w-16 h-16 text-green-500 mx-auto mb-4" />
-                            <h2 className="text-2xl font-bold text-gray-800">¡Reserva Confirmada!</h2>
-                        </div>
-                    </div>
-                )}
+
+                <ConfirmationModal
+                    isOpen={isConfirmed}
+                    onClose={resetConfirmation}
+                    title="¡Reserva Confirmada!"
+                    message="Hemos enviado los detalles de su vuelo y la factura a su correo electrónico."
+                />
+
 
                 <nav className="flex justify-between items-center mb-8 p-4 bg-white rounded-xl shadow-md">
                     {steps.map((label, index) => {
