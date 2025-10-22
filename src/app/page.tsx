@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useCallback, useMemo, useEffect } from 'react';
-import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon, Loader2 } from 'lucide-react';
+import React from 'react';
+import { CheckCircleIcon, Loader2 } from 'lucide-react';
 import { StepProps } from '../types/booking';
 import { BookingState, BookingFormData, Traveler } from '../types/booking';
 import { Step1 } from '../components/steps/step1';
@@ -83,6 +83,7 @@ const App = () => {
         totalCost,
         calculateTotalCost,
         currentStep: state.currentStep,
+        canProceed
     };
 
     const renderStep = () => {
