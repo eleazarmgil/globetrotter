@@ -4,10 +4,10 @@ import React from 'react';
 import { CheckCircleIcon, Loader2 } from 'lucide-react';
 import { StepProps } from '../types/booking';
 import { BookingState, BookingFormData, Traveler } from '../types/booking';
-import { Step1 } from '../components/steps/step1';
-import { Step2 } from '../components/steps/step2';
-import { Step3 } from '../components/steps/step3';
-import { Step4 } from '../components/steps/step4';
+import { Step1 } from '../components/steps/travelInfo/step1';
+import { Step2 } from '../components/steps/travelerInfo/step2';
+import { Step3 } from '../components/steps/additionalServicesInfo/step3';
+import { Step4 } from '../components/steps/summary/step4';
 import { useBookingFlow } from '@/hooks/useBookingFlow';
 import { ConfirmationModal } from '@/components/common/confirmationModal';
 
