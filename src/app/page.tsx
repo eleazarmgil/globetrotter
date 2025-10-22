@@ -149,7 +149,7 @@ const App = () => {
                     isOpen={isConfirmed}
                     onClose={resetConfirmation}
                     title="¡Reserva Confirmada!"
-                    message="Hemos enviado los detalles de su vuelo y la factura a su correo electrónico."
+                    message="Hemos enviado los detalles de su vuelo."
                 />
 
 

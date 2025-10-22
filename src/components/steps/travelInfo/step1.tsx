@@ -6,6 +6,13 @@ import { StepNavigation } from '../../common/stepNavigation';
 import { FormInputGroup } from '../../common/formInputGroup';
 import { FormElement } from '../../common/formElement'; 
 import { DestinationOption } from '../../../types/booking';
+import { formatCurrency } from '../../../utils/formatCurrency'; 
+
+
+interface FlightClassOption {
+    class: string;
+    display: string;
+}
 
 /**
  * @component
@@ -29,6 +36,8 @@ export const Step1 = ({
     canProceed, 
 }: StepProps) => {
 
+    const minDateToday = new Date().toISOString().split('T')[0];
+
     const uniqueDestinations = useMemo(() => {
         const destinations = new Set<string>();
         flightOptions.forEach((opt: DestinationOption) => {
@@ -36,6 +45,17 @@ export const Step1 = ({
         });
         return Array.from(destinations);
     }, [flightOptions]);
+
+    const availableClasses = useMemo(() => {
+        const selectedDestination = bookingFormData.trip.destination;
+        if (!selectedDestination) return [];
+        return flightOptions
+            .filter((opt: DestinationOption) => opt.destination === selectedDestination)
+            .map((opt: DestinationOption) => ({
+                class: opt.class,
+                display: `${opt.class} (${formatCurrency(opt.priceUSD)})`
+            }));
+    }, [flightOptions, bookingFormData.trip.destination]);
 
     const handleDestinationChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const newDestination = e.target.value;
@@ -85,6 +105,7 @@ export const Step1 = ({
                             value={bookingFormData.trip.destination}
                             required
                         >
+                            <option value="" disabled className="text-gray-800">Seleccionar</option>
                             {uniqueDestinations.map(destinationName => (
                                 <option key={destinationName} value={destinationName}>
                                     {destinationName}
@@ -102,11 +123,14 @@ export const Step1 = ({
                             className="pl-10"
                             onChange={handleFlightClassChange}
                             value={bookingFormData.trip.flightClass}
+                            disabled={!bookingFormData.trip.destination} 
                             required
                         >
-                            <option value="Economy">Economy</option>
-                            <option value="Business">Business</option>
-                            <option value="First Class">Primera Clase</option>
+                            {availableClasses.map((classOption:FlightClassOption) => (
+                                <option key={classOption.class} value={classOption.class}>
+                                    {classOption.display}
+                                </option>
+                            ))}
                         </select>
                     </FormElement>
                 </FormInputGroup>
@@ -122,6 +146,7 @@ export const Step1 = ({
                             onChange={(e) => handleDateChange('departureDate', e)}
                             value={bookingFormData.trip.departureDate}
                             placeholder="MM / DD / YYYY"
+                            min={minDateToday}
                             required
                         />
                     </FormElement>
