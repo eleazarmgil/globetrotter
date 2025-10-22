@@ -6,6 +6,13 @@ interface AdditionalServicesCardProps {
     services: BookingFormData['services'];
 }
 
+/**
+ * @component AdditionalServicesCard
+ * @description Displays a read-only summary card of all currently selected additional services 
+ * for the trip, including details like counts and notes.
+ * @param {AdditionalServicesCardProps} props - The component's props.
+ * @param {BookingFormData['services']} props.services - The object containing all additional service selections and values.
+ */
 export const AdditionalServicesCard: React.FC<AdditionalServicesCardProps> = ({ services }) => (
     <div className="p-6 bg-white rounded-xl shadow-lg border border-blue-100">
         <h4 className="text-xl font-bold text-blue-700 mb-4 flex items-center border-b pb-2">

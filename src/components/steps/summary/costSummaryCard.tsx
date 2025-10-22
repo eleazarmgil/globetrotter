@@ -9,6 +9,14 @@ interface CostSummaryCardProps {
     travelerCount: number;
 }
 
+/**
+ * @component
+ * @description A card component that displays a detailed summary of the booking costs.
+ * @param {CostSummaryCardProps} props - The component's props.
+ * @param {CostSummary} props.costSummary - An object containing the breakdown of costs (baseFlight, pets, luggage, total).
+ * @param {number} props.travelerCount - The number of travelers to display in the flight cost line.
+ * @returns {JSX.Element} The Cost Summary Card component.
+ */
 export const CostSummaryCard: React.FC<CostSummaryCardProps> = ({ costSummary, travelerCount }) => (
     <div className="lg:col-span-1 p-6 bg-blue-50 rounded-xl shadow-2xl border-4 border-blue-200 h-fit space-y-4">
         <h4 className="text-xl font-bold text-blue-700 mb-4 flex items-center border-b pb-3">

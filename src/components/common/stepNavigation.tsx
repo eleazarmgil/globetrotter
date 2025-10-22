@@ -9,6 +9,17 @@ interface StepNavigationProps {
   isLastStep: boolean;
 }
 
+/**
+ * @component StepNavigation
+ * @description Component for handling navigation between steps in a multi-step form,
+ * including 'Previous', 'Next', and 'Submit' buttons, with conditional disabling.
+ * @param {StepNavigationProps} props - The component's props.
+ * @param {() => void} [props.prevStep] - Handler function to navigate to the previous step (optional).
+ * @param {() => void} [props.nextStep] - Handler function to navigate to the next step.
+ * @param {() => void} [props.handleSubmit] - Handler function to execute final form submission.
+ * @param {boolean} props.canProceed - Determines if the 'Next'/'Finalize' button should be enabled.
+ * @param {boolean} props.isLastStep - If true, the 'Next' button changes to 'Finalize' and calls handleSubmit.
+ */
 export const StepNavigation: FC<StepNavigationProps> = ({ 
   prevStep, 
   nextStep, 

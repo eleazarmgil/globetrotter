@@ -7,6 +7,15 @@ interface TripDetailsCardProps {
     travelerCount: number;
 }
 
+/**
+ * @component
+ * @description A card component that displays the main details of the trip: destination, flight class,
+ * departure/return dates, and the total number of travelers.
+ * @param {TripDetailsCardProps} props - The component's props.
+ * @param {object} props.trip - The trip details object from the booking form data.
+ * @param {number} props.travelerCount - The number of travelers on the trip.
+ * @returns {JSX.Element} The Trip Details Card component.
+ */
 export const TripDetailsCard: React.FC<TripDetailsCardProps> = ({ trip, travelerCount }) => (
     <div className="p-6 bg-white rounded-xl shadow-lg border border-blue-100">
         <h4 className="text-xl font-bold text-blue-700 mb-4 flex items-center border-b pb-2">

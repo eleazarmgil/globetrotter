@@ -10,6 +10,16 @@ interface TravelerFormProps {
     handleTravelerChange: (id: string, key: keyof Traveler, value: string) => void;
 }
 
+/**
+ * @component
+ * @description A memoized form component for entering the details of a single traveler.
+ * It handles fields like full name, date of birth, document type, and document number.
+ * @param {TravelerFormProps} props - The component's props.
+ * @param {Traveler} props.traveler - The traveler object whose data is being edited.
+ * @param {number} props.index - The 0-based index of the traveler in the list.
+ * @param {function(string, keyof Traveler, string): void} props.handleTravelerChange - Callback to update a specific field of the traveler.
+ * @returns {JSX.Element} The Traveler Form component.
+ */
 const TravelerForm: React.FC<TravelerFormProps> = React.memo(({ 
     traveler, 
     index, 

@@ -8,6 +8,16 @@ interface TravelerCounterProps {
     onCountChange: (newCount: number) => void;
 }
 
+/**
+ * @component TravelerCounter
+ * @description A control component for incrementing/decrementing the number of travelers,
+ * enforcing minimum and maximum limits.
+ * @param {TravelerCounterProps} props - The component's props.
+ * @param {number} props.travelerCount - The current number of travelers.
+ * @param {number} props.MIN_TRAVELERS - The minimum allowed number of travelers.
+ * @param {number} props.MAX_TRAVELERS - The maximum allowed number of travelers.
+ * @param {(newCount: number) => void} props.onCountChange - Handler function for count changes.
+ */
 export const TravelerCounter: FC<TravelerCounterProps> = ({
     travelerCount,
     MIN_TRAVELERS,
