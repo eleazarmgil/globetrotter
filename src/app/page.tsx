@@ -129,14 +129,21 @@ const App = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gray-100 p-4 sm:p-8 font-sans">
-            <header className="text-center mb-10">
-                <h1 className="text-3xl font-extrabold text-blue-900 border-b-4 border-indigo-400 inline-block pb-1">
+        <div className="min-h-screen bg-gray-100 p-4 sm:p-8 font-sans" style={{
+            backgroundImage: `linear-gradient(rgba(12, 127, 218, 0.4), rgba(12, 127, 218, 0.4)), url('/background.jpg')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundAttachment: 'fixed',
+        }}>
+            <header
+                className="fixed top-0 left-0 right-0 z-20 bg-white shadow-lg py-4 text-left"
+            >
+                <h1 className="pl-10 text-3xl font-regular text-gray-600 inline-block pb-1">
                     Globetrotter
                 </h1>
             </header>
 
-            <div className="max-w-4xl mx-auto">
+            <div className="pt-[80px] w-full max-w-4xl mx-auto">
 
                 <ConfirmationModal
                     isOpen={isConfirmed}
@@ -161,7 +168,7 @@ const App = () => {
                                 }}
                             >
                                 <div className={`w-8 h-8 rounded-full flex items-center justify-center mx-auto mb-1 font-bold transition-colors duration-300 
-                                    ${isActive ? 'bg-indigo-600 text-white shadow-lg' : isCompleted ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-500'}`}
+                                    ${isActive ? 'bg-blue-600 text-white shadow-lg' : isCompleted ? 'bg-blue-400 text-white' : 'bg-gray-200 text-gray-500'}`}
                                 >
                                     {isCompleted ? <CheckCircleIcon className="w-4 h-4" /> : stepNumber}
                                 </div>
