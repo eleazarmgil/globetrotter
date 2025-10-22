@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
-import { StepProps } from '../../types/booking'; 
+import { StepProps } from '../../../types/booking'; 
 import { SearchIcon, PlaneIcon} from 'lucide-react';
-import { StepContainer } from '../common/stepContainer';
-import { StepNavigation } from '../common/stepNavigation';
-import { FormInputGroup } from '../common/formInputGroup';
-import { FormElement } from '../common/formElement'; 
-import { DestinationOption } from '../../types/booking';
+import { StepContainer } from '../../common/stepContainer';
+import { StepNavigation } from '../../common/stepNavigation';
+import { FormInputGroup } from '../../common/formInputGroup';
+import { FormElement } from '../../common/formElement'; 
+import { DestinationOption } from '../../../types/booking';
 
 export const Step1 = ({ 
     bookingFormData, 

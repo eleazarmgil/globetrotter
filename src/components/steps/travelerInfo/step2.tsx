@@ -2,10 +2,10 @@ import React, { useCallback } from 'react';
 import { StepProps, Traveler } from '@/types/booking';
 import { UsersIcon } from 'lucide-react';
 import { v4 as uuidv4 } from 'uuid';
-import { StepContainer } from '../common/stepContainer';
-import { StepNavigation } from '../common/stepNavigation';
-import { TravelerCounter } from '../common/travelerCounter';
-import { ServiceToggleWithCount } from '../common/serviceToggleWithCount';
+import { StepContainer } from '../../common/stepContainer';
+import { StepNavigation } from '../../common/stepNavigation';
+import { TravelerCounter } from '../../common/travelerCounter';
+import { ServiceToggleWithCount } from '../../common/serviceToggleWithCount';
 
 import TravelerForm from './travelerForm';
 
