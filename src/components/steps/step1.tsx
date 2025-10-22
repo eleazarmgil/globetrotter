@@ -47,7 +47,6 @@ export const Step1 = ({
         });
     };
 
-    console.log("-> Valor actual de canProceed en Step1:", canProceed);
     return (
         <StepContainer 
             title="Información del Viaje"
