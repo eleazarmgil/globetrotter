@@ -26,6 +26,7 @@ const TravelerForm: React.FC<TravelerFormProps> = React.memo(({
     handleTravelerChange, 
 }) => {
     
+    TravelerForm.displayName = 'TravelerForm';
     const onFieldChange = (key: keyof Traveler, value: string) => {
         handleTravelerChange(traveler.id, key, value); 
     };

@@ -6,7 +6,7 @@ import {
 } from 'react';
 
 interface FormElementProps {
-    children: ReactElement<any>; 
+    children: ReactElement<HTMLAttributes<HTMLElement>>;
 }
 
 /**

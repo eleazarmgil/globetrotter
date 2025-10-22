@@ -47,7 +47,7 @@ export const Step3: React.FC<StepProps> = ({
 
     const handleToggleChange = useCallback((key: 'addInsurance' | 'selectSeats' | 'requiresSpecialAssistance', checked: boolean) => {
         
-        let newServices = { ...services, [key]: checked as any };
+        const newServices = { ...services, [key]: checked };
         if (key === 'requiresSpecialAssistance' && !checked) {
             newServices.assistanceNotes = undefined;
         }

@@ -32,7 +32,6 @@ export const Step1 = ({
     updateFormData, 
     nextStep, 
     flightOptions,
-    prevStep, 
     canProceed, 
 }: StepProps) => {
 

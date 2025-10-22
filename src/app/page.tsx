@@ -11,37 +11,6 @@ import { Step4 } from '../components/steps/summary/step4';
 import { useBookingFlow } from '@/hooks/useBookingFlow';
 import { ConfirmationModal } from '@/components/common/confirmationModal';
 
-const INITIAL_FORM_DATA: BookingFormData = {
-    trip: {
-        destination: '',
-        departureDate: '',
-        returnDate: '',
-        flightClass: '',
-    } as any,
-    travelers: [{
-        id: crypto.randomUUID(),
-        fullName: '',
-        dateOfBirth: '',
-        documentType: '',
-        documentNumber: '',
-    }] as Traveler[],
-    services: {
-        travelsWithPets: false,
-        petCount: 0,
-        needsExtraLuggage: false,
-        extraLuggageCount: 0,
-        addInsurance: true,
-        selectSeats: false,
-        requiresSpecialAssistance: false,
-        assistanceNotes: null,
-    } as any,
-};
-
-const INITIAL_STATE: BookingState = {
-    currentStep: 1,
-    bookingFormData: INITIAL_FORM_DATA,
-    flightOptions: [],
-};
 
 export interface BookingFlowResult {
     state: BookingState;
@@ -58,33 +27,39 @@ export interface BookingFlowResult {
 
 
 const App = () => {
-    const {
-        state,
-        updateFormData,
-        nextStep,
-        prevStep,
-        handleFinalize,
-        isLoading,
-        error,
-        isConfirmed,
-        totalCost,
-        canProceed,
-        calculateTotalCost,
-        resetConfirmation,
-    } = useBookingFlow();
+const {
+    state,
+    updateFormData,
+    nextStep,
+    prevStep,
+    handleFinalize,
+    isLoading,
+    error,
+    isConfirmed,
+    totalCost,
+    canProceed,
+    calculateTotalCost,
+    resetConfirmation,
+    currentStep, 
+} = useBookingFlow();
 
-    const commonProps: StepProps = {
-        bookingFormData: state.bookingFormData,
-        flightOptions: state.flightOptions,
-        updateFormData,
-        nextStep,
-        prevStep,
-        handleSubmit: handleFinalize,
-        totalCost,
-        calculateTotalCost,
-        currentStep: state.currentStep,
-        canProceed
-    };
+const commonProps: StepProps = {
+    bookingFormData: state.bookingFormData,
+    flightOptions: state.flightOptions,
+    updateFormData,
+    nextStep,
+    prevStep,
+    handleFinalize: handleFinalize,
+    totalCost,
+    calculateTotalCost,
+    currentStep, 
+    canProceed,
+    state,
+    isLoading,
+    error,
+    isConfirmed,
+    resetConfirmation
+};
 
     const renderStep = () => {
         switch (state.currentStep) {
