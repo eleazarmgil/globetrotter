@@ -84,7 +84,7 @@ export const Step3: React.FC<StepProps> = ({
                 <SimpleToggle
                     id="selectSeats"
                     label="Selección de asientos preferenciales"
-                    description="Selecciona tu asiento favorito antes del check-in (Costo adicional)."
+                    description="Selecciona tu asiento favorito antes del check-in."
                     checked={services.selectSeats || false}
                     onChange={(checked) => handleToggleChange('selectSeats', checked)}
                 />
@@ -110,8 +110,8 @@ export const Step3: React.FC<StepProps> = ({
                                 rows={4}
                                 maxLength={MAX_NOTES_CHARS}
                                 required
-                                placeholder="Especifique su necesidad de asistencia médica, silla de ruedas, etc..."
-                                className={`mt-1 block w-full rounded-lg shadow-sm p-3 \
+                                placeholder="Especifique su necesidad de asistencia."
+                                className={`mt-1 block w-full rounded-lg shadow-sm p-3 text-gray-800 \
                                     ${!isStepValid ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}`
                                 }
                             />

@@ -95,7 +95,7 @@ export const Step2: React.FC<StepProps> = ({
 
     return (
         <StepContainer
-            title="Información Personal y Servicios Adicionales"
+            title="Información Personal"
             icon={<UsersIcon className="h-6 w-6" />}
             footer={
                 <StepNavigation

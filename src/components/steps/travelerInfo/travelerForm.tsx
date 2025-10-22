@@ -41,7 +41,7 @@ const TravelerForm: React.FC<TravelerFormProps> = React.memo(({
                         required
                         value={traveler.fullName}
                         onChange={(e) => onFieldChange('fullName', e.target.value)}
-                        className={`w-full px-3 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500 sm:text-sm shadow-sm ${
+                        className={`w-full px-3 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500 sm:text-sm shadow-sm text-gray-800 ${
                             isFieldInvalid(traveler.fullName) ? 'border-red-400' : 'border-gray-300'
                         }`}
                         placeholder="" 
@@ -53,7 +53,6 @@ const TravelerForm: React.FC<TravelerFormProps> = React.memo(({
                         Fecha de nacimiento
                     </label>
                     <div className="relative">
-                        <CalendarDaysIcon className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
                         <input
                             type="date"
                             id={`dateOfBirth-${traveler.id}`}
@@ -61,7 +60,7 @@ const TravelerForm: React.FC<TravelerFormProps> = React.memo(({
                             max={today}
                             value={traveler.dateOfBirth}
                             onChange={(e) => onFieldChange('dateOfBirth', e.target.value)}
-                            className={`w-full pr-10 pl-3 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500 sm:text-sm shadow-sm ${
+                            className={`w-full pr-3 pl-3 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500 sm:text-sm shadow-sm text-gray-800 ${
                                 isFieldInvalid(traveler.dateOfBirth) ? 'border-red-400' : 'border-gray-300'
                             }`}
                             placeholder="MM / DD / YYYY"
@@ -78,19 +77,19 @@ const TravelerForm: React.FC<TravelerFormProps> = React.memo(({
                         required
                         value={traveler.documentType}
                         onChange={(e) => onFieldChange('documentType', e.target.value)}
-                        className={`w-full px-3 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500 sm:text-sm shadow-sm ${
+                        className={`w-full px-3 py-2 border rounded-lg focus:ring-blue-500 text-gray-800 focus:border-blue-500 sm:text-sm shadow-sm ${
                             isFieldInvalid(traveler.documentType) ? 'border-red-400' : 'border-gray-300'
                         }`}
                     >
-                        <option value="" disabled>Seleccionar</option>
+                        <option value="" disabled className="text-gray-800">Seleccionar</option>
                         {DOCUMENT_OPTIONS.map(opt => (
-                            <option key={opt} value={opt}>{opt}</option>
+                            <option className="text-gray-800" key={opt} value={opt}>{opt}</option>
                         ))}
                     </select>
                 </div>
 
                 <div>
-                    <label htmlFor={`documentNumber-${traveler.id}`} className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor={`documentNumber-${traveler.id}`} className="block text-sm font-medium text-gray-700 mb-1 ">
                         Número de documento
                     </label>
                     <input
@@ -99,7 +98,7 @@ const TravelerForm: React.FC<TravelerFormProps> = React.memo(({
                         required
                         value={traveler.documentNumber}
                         onChange={(e) => onFieldChange('documentNumber', e.target.value)}
-                        className={`w-full px-3 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500 sm:text-sm shadow-sm ${
+                        className={`w-full px-3 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500 sm:text-sm shadow-sm text-gray-800 ${
                             isFieldInvalid(traveler.documentNumber) ? 'border-red-400' : 'border-gray-300'
                         }`}
                         placeholder="Número de documento"
