@@ -15,8 +15,13 @@ export const validateStep = (step: number, formData: BookingFormData): boolean =
                    !isNaN(returning.getTime()) &&
                    departure.getTime() <= returning.getTime();
         case 2:
-            return travelers.length > 0 &&
-                travelers.every(t => t.fullName?.trim() && t.documentNumber?.trim());
+            return travelers.length > 0 && 
+                   travelers.every(t => 
+                       t.fullName?.trim() && 
+                       t.dateOfBirth?.trim() &&
+                       t.documentType?.trim() && 
+                       t.documentNumber?.trim()
+                   );
         case 3:
             if (services.travelsWithPets && (!services.petCount || services.petCount < 1)) return false;
             if (services.needsExtraLuggage && (!services.extraLuggageCount || services.extraLuggageCount < 1)) return false;
