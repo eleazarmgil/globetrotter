@@ -10,7 +10,7 @@ const INITIAL_FORM_DATA: BookingFormData = {
         destination: '',
         departureDate: '',
         returnDate: '',
-        flightClass: 'Economy',
+        flightClass: '',
     } as any,
     travelers: [{
         id: crypto.randomUUID(),
@@ -115,7 +115,8 @@ export const useBookingFlow = (): BookingFlowResult => {
     }, [state.bookingFormData]);
 
     const canProceed = useMemo(() => {
-        if (state.currentStep === 1 && state.flightOptions.length === 0) return false;
+        if (state.currentStep === 1 && state.flightOptions.length === 0) 
+            return false;
         return validateStep(state.currentStep, state.bookingFormData);
     }, [state.currentStep, state.bookingFormData, state.flightOptions]);
 
