@@ -56,8 +56,7 @@ export const Step3: React.FC<StepProps> = ({
     }, [services, updateFormData]);
 
     const handleNotesChange = useCallback((value: string) => {
-        const safeValue = value.slice(0, MAX_NOTES_CHARS).trim(); 
-        handleServiceChange('assistanceNotes', safeValue || undefined); 
+        handleServiceChange('assistanceNotes', value);
     }, [handleServiceChange]);
     
     const isStepValid = useMemo(() => {
