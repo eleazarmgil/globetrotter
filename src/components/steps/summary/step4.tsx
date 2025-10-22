@@ -25,7 +25,7 @@ import { StepNavigation } from '../../common/stepNavigation';
 export const Step4: React.FC<StepProps> = ({
     bookingFormData,
     flightOptions,
-    handleSubmit,
+    handleFinalize,
     prevStep
 }) => {
 
@@ -43,7 +43,7 @@ export const Step4: React.FC<StepProps> = ({
     const footer = (
         <StepNavigation
             prevStep={prevStep}
-            handleSubmit={handleSubmit}
+            handleSubmit={handleFinalize}
             canProceed={isReadyToPay}
             isLastStep={true}
         />
